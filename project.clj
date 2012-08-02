@@ -11,5 +11,5 @@
     [lein-ring "0.4.5"]
     [speclj "2.1.2"]
   ]
-  :test-paths ["spec/"]
+  :test-paths ["test/spec/"]
   :main clojhare.core)
