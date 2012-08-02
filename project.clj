@@ -9,5 +9,5 @@
   :plugins [
     [lein-ring "0.4.5"]
     [speclj "2.1.2"]]
-  :test-paths ["test/spec/"]
+  :test-paths ["spec/"]
   :main clojhare.core)
