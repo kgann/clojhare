@@ -1,0 +1,4 @@
+clojhare
+========
+
+Clojure RabbitMQ Consumer
