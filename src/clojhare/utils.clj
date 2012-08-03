@@ -13,7 +13,7 @@
 (defn consume-with
   "Expects a function and a queue name to be provided
    - Optional host address -  defaults to local rabbit
-   - ack? boolean - f must return true
+   - ack? boolean - f must return true to ack
    Lazely consumes messages and executes f(msg)"
   ([f queue-name] (consume-with f queue-name "amqp://localhost"))
   ([f queue-name host] (consume-with f queue-name host true))

@@ -9,9 +9,9 @@
 (defentity appt
   (database dev))
 
-(defn insert-json [json]
+(defn insert-via-json [json]
   (insert appt
     (values (read-json json))))
 
 (defn -main [& args]
-  (util/consume-with insert-json "appointments_appointment_hours"))
+  (util/consume-with insert-via-json "appointments_appointment_hours"))
