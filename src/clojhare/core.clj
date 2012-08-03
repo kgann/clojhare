@@ -1,6 +1,6 @@
 (ns clojhare.core
-  (require [clojhare.utils       :as util])
-  (use     [clojure.data.json    :only (read-json)]))
+  (require [clojhare.utils    :as util])
+  (use     [clojure.data.json :only (read-json)]))
 
 (defn insert [json]
   (let [j (read-json json)]
