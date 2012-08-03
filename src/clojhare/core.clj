@@ -1,11 +1,17 @@
 (ns clojhare.core
   (require [clojhare.utils    :as util])
-  (use     [clojure.data.json :only (read-json)]))
+  (use     [clojure.data.json :only (read-json)]
+           korma.db korma.core))
 
-(defn insert [json]
-  (let [j (read-json json)]
-    (println
-      (map str (keys j)) (map str (vals j)))))
+(defdb dev
+  (mysql {:db "clojhare" :user "root" :password "temp!@#$"}))
+
+(defentity appt
+  (database dev))
+
+(defn insert-json [json]
+  (insert appt
+    (values (read-json json))))
 
 (defn -main [& args]
-  (util/consume #(insert %) "appointments_appointment_hours"))
+  (util/consume-with insert-json "appointments_appointment_hours"))

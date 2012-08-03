@@ -7,13 +7,16 @@
 (defn delivery-tag [msg]
   (-> msg :envelope :delivery-tag))
 
-(defn consume
-  ; Expects a function and a queue name to be provided
-  ; Optional host address
-  ; ack? boolean - f must return true
-  ; Lazely consumes messages and executes f(msg)
-  ([f queue-name] (consume f queue-name "amqp://localhost"))
-  ([f queue-name host] (consume f queue-name host true))
+(defn ack [msg]
+  (amqp/ack (delivery-tag msg)))
+
+(defn consume-with
+  "Expects a function and a queue name to be provided
+   - Optional host address -  defaults to local rabbit
+   - ack? boolean - f must return true
+   Lazely consumes messages and executes f(msg)"
+  ([f queue-name] (consume-with f queue-name "amqp://localhost"))
+  ([f queue-name host] (consume-with f queue-name host true))
   ([f queue-name host ack?]
     (amqp/with-broker {:uri host}
       (amqp/with-channel
@@ -21,4 +24,4 @@
           (doseq [msg (amqp/consuming-seq)]
             (let [result (f (body msg))]
               (if (and result ack?)
-                (amqp/ack (delivery-tag msg))))))))))
+                (ack msg)))))))))
