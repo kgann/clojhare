@@ -24,6 +24,6 @@
       (amqp/with-channel
         (amqp/with-queue queue-name
           (doseq [msg (amqp/consuming-seq)]
-            (let [result (func (body msg))]
-              (if (and result ack?)
+            (let [res (func (body msg))]
+              (if (and res ack?)
                 (ack msg)))))))))
