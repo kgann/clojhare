@@ -14,7 +14,7 @@
   "Expects a function and a queue name to be provided
    - Optional host address -  defaults to local rabbit
    - ack? boolean - func must return true to ack
-   Lazely consumes messages and executes func(msg)"
+   Consumes messages and executes func(msg)"
   ([func queue-name & {:keys [host ack?] :or {host "amqp://localhost" ack? true}}]
     (amqp/with-broker {:uri host}
       (amqp/with-channel
