@@ -15,11 +15,7 @@
    - Optional host address -  defaults to local rabbit
    - ack? boolean - func must return true to ack
    Lazely consumes messages and executes func(msg)"
-  ([func queue-name]
-    (consume-with func queue-name "amqp://localhost"))
-  ([func queue-name host]
-    (consume-with func queue-name host true))
-  ([func queue-name host ack?]
+  ([func queue-name & {:keys [host ack?] :or {host "amqp://localhost" ack? true}}]
     (amqp/with-broker {:uri host}
       (amqp/with-channel
         (amqp/with-queue queue-name
